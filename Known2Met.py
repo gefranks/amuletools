@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-## known2_met 格式：
+## known2_64.met 格式：
 #   [Version ]----------[Version: uint8               ]
 #   [HashTree]+---------[RootHash: uint160            ]
 #   [HashTree]+     `---[HashCount: uint32            ] 

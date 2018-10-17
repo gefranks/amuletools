@@ -575,7 +575,7 @@ class KnownMet:
 
         if not KnownMet.PrintLinkOnlyEnabled:
             print3('KnownMetVersion:', hex(self.head[KnownMet.Version]))
-            print3('RecrodCount:', self.head[KnownMet.Count])
+            print3('RecordCount:', self.head[KnownMet.Count])
     
 if __name__ == '__main__':
     def usage(appName, exitCode=0):
