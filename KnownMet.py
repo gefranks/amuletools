@@ -1,5 +1,4 @@
 #!/bin/python3
-#-*- coding=UTF-8 -*-
 import sys
 import os
 import time
@@ -98,83 +97,95 @@ FT_FILECOMMENT = 0xF6
 FT_FILERATING = 0xF7
 
 PriorityDict = {
-PR_LOW:'PR_LOW',
-PR_NORMAL:'PR_NORMAL',
-PR_HIGH:'PR_HIGH',
-PR_VERYHIGH:'PR_VERYHIGH',
-PR_VERYLOW:'PR_VERYLOW',
-PR_AUTO:'PR_AUTO',
-PR_POWERSHARE:'PR_POWERSHARE'
+PR_LOW:"PR_LOW",
+PR_NORMAL:"PR_NORMAL",
+PR_HIGH:"PR_HIGH",
+PR_VERYHIGH:"PR_VERYHIGH",
+PR_VERYLOW:"PR_VERYLOW",
+PR_AUTO:"PR_AUTO",
+PR_POWERSHARE:"PR_POWERSHARE"
 }
 
 TagTypeDict = {
-TAGTYPE_HASH16:'TAGTYPE_HASH16',
-TAGTYPE_STRING:'TAGTYPE_STRING',
-TAGTYPE_UINT32:'TAGTYPE_UINT32',
-TAGTYPE_FLOAT32:'TAGTYPE_FLOAT32',
-TAGTYPE_BOOL:'TAGTYPE_BOOL',
-TAGTYPE_BOOLARRAY:'TAGTYPE_BOOLARRAY',
-TAGTYPE_BLOB:'TAGTYPE_BLOB',
-TAGTYPE_UINT16:'TAGTYPE_UINT16',
-TAGTYPE_UINT8:'TAGTYPE_UINT8',
-TAGTYPE_BSOB:'TAGTYPE_BSOB',
-TAGTYPE_UINT64:'TAGTYPE_UINT64'
+TAGTYPE_HASH16:"TAGTYPE_HASH16",
+TAGTYPE_STRING:"TAGTYPE_STRING",
+TAGTYPE_UINT32:"TAGTYPE_UINT32",
+TAGTYPE_FLOAT32:"TAGTYPE_FLOAT32",
+TAGTYPE_BOOL:"TAGTYPE_BOOL",
+TAGTYPE_BOOLARRAY:"TAGTYPE_BOOLARRAY",
+TAGTYPE_BLOB:"TAGTYPE_BLOB",
+TAGTYPE_UINT16:"TAGTYPE_UINT16",
+TAGTYPE_UINT8:"TAGTYPE_UINT8",
+TAGTYPE_BSOB:"TAGTYPE_BSOB",
+TAGTYPE_UINT64:"TAGTYPE_UINT64"
 }
 
 NameIdDict = {
-FT_FILENAME:'FT_FILENAME',
-FT_FILESIZE:'FT_FILESIZE',
-FT_FILESIZE_HI:'FT_FILESIZE_HI',
-FT_FILETYPE:'FT_FILETYPE',
-FT_FILEFORMAT:'FT_FILEFORMAT',
-FT_LASTSEENCOMPLETE:'FT_LASTSEENCOMPLETE',
-FT_TRANSFERRED:'FT_TRANSFERRED',
-FT_GAPSTART:'FT_GAPSTART',
-FT_GAPEND:'FT_GAPEND',
-FT_DESCRIPTION:'FT_DESCRIPTION',
-FT_PARTFILENAME:'FT_PARTFILENAME',
-FT_OLDDLPRIORITY:'FT_OLDDLPRIORITY',
-FT_STATUS:'FT_STATUS',
-FT_SOURCES:'FT_SOURCES',
-FT_PERMISSIONS:'FT_PERMISSIONS',
-FT_OLDULPRIORITY:'FT_OLDULPRIORITY',
-FT_DLPRIORITY:'FT_DLPRIORITY',
-FT_ULPRIORITY:'FT_ULPRIORITY',
-FT_COMPRESSION:'FT_COMPRESSION',
-FT_CORRUPTED:'FT_CORRUPTED',
-FT_KADLASTPUBLISHKEY:'FT_KADLASTPUBLISHKEY',
-FT_KADLASTPUBLISHSRC:'FT_KADLASTPUBLISHSRC',
-FT_FLAGS:'FT_FLAGS',
-FT_DL_ACTIVE_TIME:'FT_DL_ACTIVE_TIME',
-FT_CORRUPTEDPARTS:'FT_CORRUPTEDPARTS',
-FT_DL_PREVIEW:'FT_DL_PREVIEW',
-FT_KADLASTPUBLISHNOTES:'FT_KADLASTPUBLISHNOTES',
-FT_AICH_HASH:'FT_AICH_HASH',
-FT_FILEHASH:'FT_FILEHASH',
-FT_COMPLETE_SOURCES:'FT_COMPLETE_SOURCES',
-FT_COLLECTIONAUTHOR:'FT_COLLECTIONAUTHOR',
-FT_COLLECTIONAUTHORKEY:'FT_COLLECTIONAUTHORKEY',
-FT_PUBLISHINFO:'FT_PUBLISHINFO',
-FT_LASTSHARED:'FT_LASTSHARED',
-FT_AICHHASHSET:'FT_AICHHASHSET',
-FT_ATTRANSFERRED:'FT_ATTRANSFERRED',
-FT_ATREQUESTED:'FT_ATREQUESTED',
-FT_ATACCEPTED:'FT_ATACCEPTED',
-FT_CATEGORY:'FT_CATEGORY',
-FT_ATTRANSFERREDHI:'FT_ATTRANSFERREDHI',
-FT_MAXSOURCES:'FT_MAXSOURCES',
-FT_NOTCOUNTEDTRANSFERREDLOW:'FT_NOTCOUNTEDTRANSFERREDLOW',
-FT_NOTCOUNTEDTRANSFERREDHIGH:'FT_NOTCOUNTEDTRANSFERREDHIGH',
-FT_LASTDATAUPDATE:'FT_LASTDATAUPDATE',
-FT_MEDIA_ARTIST:'FT_MEDIA_ARTIST',
-FT_MEDIA_ALBUM:'FT_MEDIA_ALBUM',
-FT_MEDIA_TITLE:'FT_MEDIA_TITLE',
-FT_MEDIA_LENGTH:'FT_MEDIA_LENGTH',
-FT_MEDIA_BITRATE:'FT_MEDIA_BITRATE',
-FT_MEDIA_CODEC:'FT_MEDIA_CODEC',
-FT_FILECOMMENT:'FT_FILECOMMENT',
-FT_FILERATING:'FT_FILERATING'
+FT_FILENAME:"FT_FILENAME",
+FT_FILESIZE:"FT_FILESIZE",
+FT_FILESIZE_HI:"FT_FILESIZE_HI",
+FT_FILETYPE:"FT_FILETYPE",
+FT_FILEFORMAT:"FT_FILEFORMAT",
+FT_LASTSEENCOMPLETE:"FT_LASTSEENCOMPLETE",
+FT_TRANSFERRED:"FT_TRANSFERRED",
+FT_GAPSTART:"FT_GAPSTART",
+FT_GAPEND:"FT_GAPEND",
+FT_DESCRIPTION:"FT_DESCRIPTION",
+FT_PARTFILENAME:"FT_PARTFILENAME",
+FT_OLDDLPRIORITY:"FT_OLDDLPRIORITY",
+FT_STATUS:"FT_STATUS",
+FT_SOURCES:"FT_SOURCES",
+FT_PERMISSIONS:"FT_PERMISSIONS",
+FT_OLDULPRIORITY:"FT_OLDULPRIORITY",
+FT_DLPRIORITY:"FT_DLPRIORITY",
+FT_ULPRIORITY:"FT_ULPRIORITY",
+FT_COMPRESSION:"FT_COMPRESSION",
+FT_CORRUPTED:"FT_CORRUPTED",
+FT_KADLASTPUBLISHKEY:"FT_KADLASTPUBLISHKEY",
+FT_KADLASTPUBLISHSRC:"FT_KADLASTPUBLISHSRC",
+FT_FLAGS:"FT_FLAGS",
+FT_DL_ACTIVE_TIME:"FT_DL_ACTIVE_TIME",
+FT_CORRUPTEDPARTS:"FT_CORRUPTEDPARTS",
+FT_DL_PREVIEW:"FT_DL_PREVIEW",
+FT_KADLASTPUBLISHNOTES:"FT_KADLASTPUBLISHNOTES",
+FT_AICH_HASH:"FT_AICH_HASH",
+FT_FILEHASH:"FT_FILEHASH",
+FT_COMPLETE_SOURCES:"FT_COMPLETE_SOURCES",
+FT_COLLECTIONAUTHOR:"FT_COLLECTIONAUTHOR",
+FT_COLLECTIONAUTHORKEY:"FT_COLLECTIONAUTHORKEY",
+FT_PUBLISHINFO:"FT_PUBLISHINFO",
+FT_LASTSHARED:"FT_LASTSHARED",
+FT_AICHHASHSET:"FT_AICHHASHSET",
+FT_ATTRANSFERRED:"FT_ATTRANSFERRED",
+FT_ATREQUESTED:"FT_ATREQUESTED",
+FT_ATACCEPTED:"FT_ATACCEPTED",
+FT_CATEGORY:"FT_CATEGORY",
+FT_ATTRANSFERREDHI:"FT_ATTRANSFERREDHI",
+FT_MAXSOURCES:"FT_MAXSOURCES",
+FT_NOTCOUNTEDTRANSFERREDLOW:"FT_NOTCOUNTEDTRANSFERREDLOW",
+FT_NOTCOUNTEDTRANSFERREDHIGH:"FT_NOTCOUNTEDTRANSFERREDHIGH",
+FT_LASTDATAUPDATE:"FT_LASTDATAUPDATE",
+FT_MEDIA_ARTIST:"FT_MEDIA_ARTIST",
+FT_MEDIA_ALBUM:"FT_MEDIA_ALBUM",
+FT_MEDIA_TITLE:"FT_MEDIA_TITLE",
+FT_MEDIA_LENGTH:"FT_MEDIA_LENGTH",
+FT_MEDIA_BITRATE:"FT_MEDIA_BITRATE",
+FT_MEDIA_CODEC:"FT_MEDIA_CODEC",
+FT_FILECOMMENT:"FT_FILECOMMENT",
+FT_FILERATING:"FT_FILERATING"
 }
+
+"""
+def xAssert(boolean):
+    try:
+        assert(boolean)
+    except:
+        # sys.exc_info() -> (type, value, traceback)
+        f_back = sys.exc_info()[2].tb_frame.f_back
+        print("Assertion Failed At: %s: %s" %
+              (f_back.f_code.co_name, f_back.f_lineno), file=sys.stderr)
+        raise
+"""
 
 def xAssert(boolean):
     if not boolean:
@@ -182,8 +193,8 @@ def xAssert(boolean):
                              (sys._getframe().f_back.f_code.co_name,
                               sys._getframe().f_back.f_lineno))
 
-def print3(label, value, tagname=''):
-    print('%-20s %-8s %s' % (label, tagname, value))
+def print3(label, value, tagname=""):
+    print("%-20s %-8s %s" % (label, tagname, value))
 
     
 def formatPriority(key):
@@ -191,45 +202,44 @@ def formatPriority(key):
 
 def formatElapse(seconds):
     if seconds is None:
-        return 'None'
+        return "None"
     d = seconds // (3600 * 24)
     h = (seconds % (3600 * 24)) // 3600
     m = ((seconds % (3600 * 24)) % 3600) // 60
-    #s = ((seconds % (3600 * 24)) % 3600) % 60
-    return '%s Days %s Hours %s Minutes' % (d,h,m)
+    return "%s Days %s Hours %s Minutes" % (d,h,m)
 
 def formatDateTime(time_secs):
     if time_secs is None:
-        return 'None'
+        return "None"
     if time_secs == 0:
-        return 'Unknown'
-    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_secs))
+        return "Unknown"
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time_secs))
 
 def formatSize(size):
     if size is None:
-        return 'None'
+        return "None"
     if size > 1024**3:
-        return '%s (%.2f GiB)' % (size, size / 1024**3)
+        return "%s (%.2f GiB)" % (size, size / 1024**3)
     elif size > 1024**2:
-        return '%s (%.2f MiB)' % (size, size / 1024**2)
+        return "%s (%.2f MiB)" % (size, size / 1024**2)
     elif size > 1024:
-        return '%s (%.2f KiB)' % (size, size / 1024)
+        return "%s (%.2f KiB)" % (size, size / 1024)
     return str(size)
 
 def formatSize2(size):
     if size is None:
-        return 'None'
+        return "None"
     if size > 1024**3:
-        return '%.2f GiB' % (size / 1024**3,)
+        return "%.2f GiB" % (size / 1024**3,)
     elif size > 1024**2:
-        return '%.2f MiB' % (size / 1024**2,)
+        return "%.2f MiB" % (size / 1024**2,)
     elif size > 1024:
-        return '%.2f KiB' % (size / 1024,)
+        return "%.2f KiB" % (size / 1024,)
     return str(size)
 
 class OpenForReadBinaryOnly:
     def __init__(self, filepath):
-        self.reader = open(filepath, 'rb')
+        self.reader = open(filepath, "rb")
 
     def close(self):
         self.reader.close()
@@ -240,19 +250,19 @@ class OpenForReadBinaryOnly:
         return d
         
     def readUint8(self):
-        return int.from_bytes(self.read(1), byteorder='little')
+        return int.from_bytes(self.read(1), byteorder="little")
     def readUint16(self):
-        return int.from_bytes(self.read(2), byteorder='little')
+        return int.from_bytes(self.read(2), byteorder="little")
     def readUint32(self):
-        return int.from_bytes(self.read(4), byteorder='little')
+        return int.from_bytes(self.read(4), byteorder="little")
     def readUint64(self):
-        return int.from_bytes(self.read(8), byteorder='little')
+        return int.from_bytes(self.read(8), byteorder="little")
     def readFloat32(self):
-        return int.from_bytes(self.read(4), byteorder='big')
+        return int.from_bytes(self.read(4), byteorder="big")
     def readHash(self):
         return self.read(16)
     def readUtf8(self, len_):
-        return self.read(len_).decode('utf-8')
+        return self.read(len_).decode("utf-8")
 
     def seek(self, offset, whence=0):
         return self.reader.seek(offset, whence)
@@ -264,6 +274,8 @@ class Gap:
     def __init__(self):
         self.start = Gap.InvalidValue
         self.end = Gap.InvalidValue
+
+class TagException(Exception): pass
         
 class Tag:    
     def __init__(self, reader):
@@ -316,20 +328,20 @@ class Tag:
             
         elif self.type_ == TAGTYPE_BOOL:
             reader.read(1)
-            self.value = 'TAGTYPE_BLOB'
+            self.value = "TAGTYPE_BLOB"
             
         elif self.type_ == TAGTYPE_BOOLARRAY:
             len_ = reader.readUint16()
             # 07-Apr-2004: eMule versions prior to 0.42e.29 used the formula: "(len_+7)//8"! warning This seems to be off by one! 8 // 8 + 1 == 2, etc.
             reader.seek(len_//8 + 1, 1)
-            self.value = 'TAGTYPE_BOOLARRAY'
+            self.value = "TAGTYPE_BOOLARRAY"
             
         elif self.type_ == TAGTYPE_BLOB:
             reader.seek(reader.readUint32(), 1)
-            self.value = 'TAGTYPE_BLOB'
+            self.value = "TAGTYPE_BLOB"
             
         else:
-            raise Exception('Unknown tag type: %s' % (self.type_,) )
+            raise TagException("Unknown tag type: %s" % (self.type_,) )
             
 
     def isInt(self):
@@ -344,14 +356,16 @@ class Record:
     FileHash = 2
     PartHashs = 3
     FileSize = 4
-    def __init__(self, reader):
+    def __init__(self):
         self.head = {}
         self.body = {}
         self.taglist = []
         self.gaplist = []
-        self.__loadModifTime(reader)
-        self.__loadHashs(reader)
-        self.__loadTags(reader)
+
+    def load(self, reader):
+        self.loadModifTime(reader)
+        self.loadHashs(reader)
+        self.loadTags(reader)
 
     def getFileSize(self):
         list_ = self.body.get(FT_FILESIZE)
@@ -363,23 +377,26 @@ class Record:
     def getFileHash(self):
         return self.head[Record.FileHash].hex().upper()
 
-    def __loadModifTime(self, reader):
+    def loadModifTime(self, reader):
         self.head[Record.ModifTime] = reader.readUint32()
 
-    def __loadHashs(self, reader):
+    def loadHashs(self, reader, isFileHashOnly=False):
         self.head[Record.FileHash] = reader.readHash()
+        if isFileHashOnly:
+            self.head[Record.PartHashs] = []
+            return
         n = reader.readUint16()
         self.head[Record.PartHashs] = [reader.readHash() for _ in range(0,n)]
         
         if n == 1:
             xAssert(self.head[Record.FileHash] == self.head[Record.PartHashs][0])
         elif n > 1:
-            md4 = hashlib.new('md4')
+            md4 = hashlib.new("md4")
             for h in self.head[Record.PartHashs]:
                 md4.update(h)
             xAssert(self.head[Record.FileHash] == md4.digest())
 
-    def __loadTags(self, reader):
+    def loadTags(self, reader, isnewstyle=False, partmettype=PMT_DEFAULTOLD):
         gdict = {}
         tagCount = reader.readUint32()
         
@@ -411,9 +428,9 @@ class Record:
             elif tag.name_id == FT_STATUS:
                 xAssert(tag.isInt())
                 if tag.value == 0:
-                    self.body[tag.name_id] = 'Downloading'
+                    self.body[tag.name_id] = "Downloading"
                 else:
-                    self.body[tag.name_id] = 'Paused Or Stopped'
+                    self.body[tag.name_id] = "Paused Or Stopped"
 
             elif tag.name_id == FT_FILETYPE:
                 xAssert(tag.isStr())
@@ -426,15 +443,21 @@ class Record:
             elif tag.name_id in (FT_DLPRIORITY, FT_OLDDLPRIORITY):
                 xAssert(tag.isInt())
                 v = tag.value
-                if v == PR_AUTO: v = PR_HIGH
-                elif not v in (PR_LOW,PR_NORMAL,PR_HIGH): v = PR_NORMAL
+                if not isnewstyle:
+                    if v == PR_AUTO:
+                        v = PR_HIGH
+                    elif not v in (PR_LOW,PR_NORMAL,PR_HIGH):
+                        v = PR_NORMAL
                 self.body[FT_DLPRIORITY] = formatPriority(v)
                     
             elif tag.name_id in (FT_ULPRIORITY, FT_OLDULPRIORITY):
                 xAssert(tag.isInt())
                 v = tag.value
-                if v == PR_AUTO: v = PR_HIGH
-                elif not v in (PR_LOW,PR_NORMAL,PR_HIGH): v = PR_NORMAL
+                if not isnewstyle:
+                    if v == PR_AUTO:
+                        v = PR_HIGH
+                    elif not v in (PR_LOW,PR_NORMAL,PR_HIGH):
+                        v = PR_NORMAL
                 self.body[FT_ULPRIORITY] = formatPriority(v)
 
             elif tag.name_id == FT_KADLASTPUBLISHSRC:
@@ -513,7 +536,7 @@ class Record:
                     self.taglist.append(tag)
 
             if 0:
-                print('%-20s %-15s %-8s %s' %
+                print("%-20s %-15s %-8s %s" %
                       (NameIdDict.get(tag.name_id),
                        TagTypeDict[tag.type_],
                        tag.name,
@@ -523,26 +546,32 @@ class Record:
         self.gaplist = sorted(gdict.values(), key=lambda x:x.start)
             
     def printEd2kLink(self):
-        print('ed2k://|file|%s|%s|%s|/' %
-              (self.body[FT_FILENAME].replace(' ', '_'),
+        print("ed2k://|file|%s|%s|%s|/" %
+              (self.body[FT_FILENAME].replace(" ", "_"),
                self.getFileSize(),
                self.getFileHash()) )
 
-    def printDetails(self):
-        print3('ModifTime:', formatDateTime(self.head.get(Record.ModifTime)))
-        print3('FileHash:', self.getFileHash())
-        print3('PartHashCount:', len(self.head[Record.PartHashs]))
+    def printDetails(self, printall=False):
+        print3("ModifTime:", formatDateTime(self.head.get(Record.ModifTime)))
+        print3("FileHash:", self.getFileHash())
+        print3("PartHashCount:", len(self.head[Record.PartHashs]))
         for k in self.body.keys():
             v = self.body[k]
             print3(NameIdDict[k], v)
-        #print3('OtherTagCount:', len(self.taglist))
-        #for tag in self.taglist: print3('', tag.value, tagname=tag.name)
-        #print3('NeedsRangeCount:', len(self.gaplist))
+        if printall:
+            print3("NeedsRangeCount:", len(self.gaplist))
+            print3("OtherTagCount:", len(self.taglist))
+            for tag in self.taglist:
+                print3("", tag.value, tagname=tag.name)
 
+
+class KnownMetException(Exception): pass
+        
 class KnownMet:
     PrintLinkOnlyEnabled = False
     Version = 0
     Count = 1
+    
     def __init__(self, metpath):
         self.head = [0, 0]
         self.body = []
@@ -555,15 +584,17 @@ class KnownMet:
         self.head[KnownMet.Version] = reader.readUint8()
         if not self.head[KnownMet.Version] in (MET_HEADER,
                                                MET_HEADER_I64TAGS):
-            print('Version:', hex(self.head[KnownMet.Version]), file=sys.stderr)
-            raise Exception('Invailed Version')
+            raise KnownMetException("Invailed Version 0x%02x"
+                                    % (self.head[KnownMet.Version],))
         self.head[KnownMet.Count] = reader.readUint32()
         self.__loadRecords(reader)
 
     def __loadRecords(self, reader):
         for _ in range(0, self.head[KnownMet.Count]):
-            self.body.append(Record(reader))
-
+            record = Record()
+            record.load(reader)
+            self.body.append(record)
+            
     def printRecords(self):
         xAssert(self.head[KnownMet.Count] == len(self.body))
         for record in self.body:
@@ -571,34 +602,42 @@ class KnownMet:
                 record.printEd2kLink()
             else:
                 record.printDetails()
-                print('-' * 60)
+                print("-" * 60)
 
         if not KnownMet.PrintLinkOnlyEnabled:
-            print3('KnownMetVersion:', hex(self.head[KnownMet.Version]))
-            print3('RecordCount:', self.head[KnownMet.Count])
-    
-if __name__ == '__main__':
+            print3("KnownMetVersion:", "0x%02x"%(self.head[KnownMet.Version],))
+            print3("RecordCount:", self.head[KnownMet.Count])
+
+
+if __name__ == "__main__":
+
     def usage(appName, exitCode=0):
-        print(appNeme, '[-h|-l] <known.met>', file=sys.stderr)
+        print(appNeme, "[-h|-l] <known.met>", file=sys.stderr)
         exit(exitCode)
 
     try:
         if len(sys.argv) < 2:
-            print('No Argument', file=sys.stderr)
+            print("No Argument", file=sys.stderr)
             usage(sys.argv[0], 1)
 
-        fpath = ''
+        fpath = ""
         for arg in sys.argv[1:]:
-            if arg == '-h':
+            if arg == "-h":
                 usage(sys.argv[0])
-            elif arg == '-l':
+            elif arg == "-l":
                 KnownMet.PrintLinkOnlyEnabled = True
             else:
                 fpath = arg
             
         km = KnownMet(fpath)
         km.printRecords()
-              
-    except Exception as e:
-        print('Exception:', e, file=sys.stderr)
+
+    except TagException as e:
+        print("TagException:", e, file=sys.stderr)
         exit(2)
+    except KnownMetException as e:
+        print("KnownMetException:", e, file=sys.stderr)
+        exit(3)
+    except Exception as e:
+        print("Exception:", e, file=sys.stderr)
+        exit(4)

@@ -17,3 +17,5 @@
 `$ Known2Met.py -d known2_64.met > known2_64.txt`
 * 将文本文件转换为二进制文件    
 `$ Known2Met.py -e known2_64.txt > 2_known2_64.met`
+## LinkCreator.py 打印 eD2k link    
+`$ LinkCreator.py <File>...`

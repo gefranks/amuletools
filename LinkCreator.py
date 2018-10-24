@@ -43,14 +43,23 @@ class LinkCreator:
         else:
             self.hash_ = hlist[0].hex().upper()
 
-    def printLink(self, outfile=sys.stdout):
-        link = 'ed2k://|file|%s|%s|%s' % (self.name, self.size, self.hash_)
+    def __getLink(self):
+        strlist = [
+            'ed2k://|file|%s|%s|%s' % (self.name, self.size, self.hash_),
+        ]
+        strlist.append('|p=' + self.hashlist[0])
+        for em in self.hashlist[1:]:
+            strlist.append(':' + em)
+        strlist.append('|/')
+        return ''.join(strlist)
+
+    @property
+    def link(self):
         if LinkCreator.PrintPartHashsEnabled and len(self.hashlist) > 1:
-            link += '|p=%s' % (self.hashlist[0],)
-            for i in range(1, len(self.hashlist)):
-                link += ':%s' % (self.hashlist[i],)
-        link += '|/'
-        print(link, file=outfile)
+            return self.__getLink()
+        else:
+            return 'ed2k://|file|%s|%s|%s|/' % (self.name, self.size,
+                                                self.hash_)
 
 
 if __name__ == "__main__":
@@ -59,12 +68,12 @@ if __name__ == "__main__":
         exit(1)
 
     try:
-        LinkCreator.PrintPartHashsEnabled = True
+        # LinkCreator.PrintPartHashsEnabled = True
         for fpath in sys.argv[1:]:
             l = LinkCreator(os.path.basename(fpath), os.path.getsize(fpath))
             with open(fpath, 'rb') as binfile:
                 l.createFromFile(binfile)
-            l.printLink()
+            print(l.link)
     except Exception as e:
         print('Exception:', e, file=sys.stderr)
         exit(2)
