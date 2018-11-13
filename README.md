@@ -17,5 +17,8 @@
 `$ Known2Met.py -d known2_64.met > known2_64.txt`
 * 将文本文件转换为二进制文件    
 `$ Known2Met.py -e known2_64.txt > 2_known2_64.met`
+## CanceledMet.py 处理 canceled.met
+* 将二进制文件转换为文本文件 
+`$ CanceledMet.py <File>`
 ## LinkCreator.py 打印 eD2k link    
 `$ LinkCreator.py <File>...`

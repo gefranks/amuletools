@@ -1,6 +1,7 @@
 #!/bin/python3
 import sys
 import os
+import io
 import time
 import hashlib
 
@@ -237,15 +238,12 @@ def formatSize2(size):
         return "%.2f KiB" % (size / 1024,)
     return str(size)
 
-class OpenForReadBinaryOnly:
-    def __init__(self, filepath):
-        self.reader = open(filepath, "rb")
-
-    def close(self):
-        self.reader.close()
+class OpenForReadBinaryOnly(io.FileIO):
+    def __init__(self, path):
+        super().__init__(path, "rb")
 
     def read(self, len_):
-        d = self.reader.read(len_)
+        d = super().read(len_)
         xAssert(len(d) == len_)
         return d
         
@@ -263,19 +261,19 @@ class OpenForReadBinaryOnly:
         return self.read(16)
     def readUtf8(self, len_):
         return self.read(len_).decode("utf-8")
+    def readUtf16(self, len_):
+        return self.read(len_).decode("utf-16-le")
 
-    def seek(self, offset, whence=0):
-        return self.reader.seek(offset, whence)
-    def tell(self):
-        return self.reader.tell()
-    
+
 class Gap:
     InvalidValue = 0xFFFFFFFFFFFFFFFF
     def __init__(self):
         self.start = Gap.InvalidValue
         self.end = Gap.InvalidValue
 
-class TagException(Exception): pass
+        
+class TagException(Exception):
+    pass
         
 class Tag:    
     def __init__(self, reader):
@@ -327,18 +325,19 @@ class Tag:
             self.value = reader.readHash()
             
         elif self.type_ == TAGTYPE_BOOL:
-            reader.read(1)
-            self.value = "TAGTYPE_BLOB"
+            self.value = reader.readUint8()
             
         elif self.type_ == TAGTYPE_BOOLARRAY:
             len_ = reader.readUint16()
             # 07-Apr-2004: eMule versions prior to 0.42e.29 used the formula: "(len_+7)//8"! warning This seems to be off by one! 8 // 8 + 1 == 2, etc.
             reader.seek(len_//8 + 1, 1)
-            self.value = "TAGTYPE_BOOLARRAY"
+            # TODO
+            self.value = "None"
             
         elif self.type_ == TAGTYPE_BLOB:
             reader.seek(reader.readUint32(), 1)
-            self.value = "TAGTYPE_BLOB"
+            # TODO
+            self.value = "None"
             
         else:
             raise TagException("Unknown tag type: %s" % (self.type_,) )
@@ -513,7 +512,7 @@ class Record:
             elif tag.name_id == FT_AICHHASHSET:
                 xAssert(tag.type_ == TAGTYPE_BLOB)
                 # TODO
-                xAssert(False)
+                # print(tag.value, file=sys.stderr)
 
             elif tag.name_id in (FT_PERMISSIONS, FT_KADLASTPUBLISHKEY):
                 ### old tags: as long as they are not needed,
@@ -576,9 +575,8 @@ class PartMet:
     def __init__(self, metpath):
         self.version = 0
         self.record = Record()
-        reader = OpenForReadBinaryOnly(metpath)
-        self.loadFromFile(reader)
-        reader.close()
+        with OpenForReadBinaryOnly(metpath) as reader:
+            self.loadFromFile(reader)
         
     def loadFromFile(self, reader):
         start_pos = reader.tell()
