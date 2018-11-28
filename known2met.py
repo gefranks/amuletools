@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+#-*- coding: utf-8 -*-
 # known2_64.met 格式：
 #   [Version ]----------[Version: uint8               ]
 #   [HashTree]+---------[RootHash: uint160            ]
@@ -112,40 +112,37 @@ class Known2_Encode:
         self.offset += len(line)
 
 
-if __name__ == "__main__":
-
-    filepath = None
-    decode = True
-    for arg in sys.argv[1:]:
-        if arg == "-d":
-            decode = True
-        elif arg == "-e":
-            decode = False
-        else:
-            filepath = arg
-            
-    if filepath is None:
-        print("No Argument", file=sys.stderr)
-        exit(1)
-
+def main():
+    import sys
+    import argparse
+    
+    p = argparse.ArgumentParser()
+    p.add_argument("-d", dest="d", action="store_true", help="decode know2_64.met")
+    p.add_argument("-e", dest="e", action="store_true", help="encode know2_64.txt")
+    p.add_argument(dest="file", nargs=1, help="know2_64.met or know2_64.txt")
+    args = p.parse_args(sys.argv[1:])
+    
     try:
-        filesize = os.path.getsize(filepath)
+        filesize = os.path.getsize(args.file[0])
         if filesize == 0:
             print("Empty File", file=sys.stderr)
             exit(2)
-            
+
+        decode = args.d or (not args.e)
         if decode:
-            with open(filepath, "rb") as binfile:
+            with open(args.file[0], "rb") as binfile:
                 km = Known2Met(binfile, filesize)
                 km.decode()  
         else:
-            with open(filepath, "r") as txtfile:
+            with open(args.file[0], "r") as txtfile:
                 ke = Known2_Encode(txtfile, filesize)
                 ke.encode()
-
     except Known2Exception as e:
         print("Known2Exception:", e, file=sys.stderr)
         exit(3)
     except Exception as e:
         print("Exception:", e, file=sys.stderr)
         exit(4)
+
+if __name__ == "__main__":
+    main()

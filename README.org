@@ -1,0 +1,23 @@
+#+OPTIONS: ^:{}
+* aMule tools
+输入选项 -h 或 --help 可查看工具的帮助；成功有效数据输出到 stdout，错误信息输出到 stderr
+** 打印 XXX.part.met 详情
+#+BEGIN_SRC sh
+python3 partmet.py XXX.part.met
+#+END_SRC
+** 打印 known.met 详情
+#+BEGIN_SRC sh
+python3 knownmet.py known.met
+#+END_SRC
+** 打印 known2_64.met 详情
+#+BEGIN_SRC sh
+python3 known2met.py known2_64.met
+#+END_SRC
+** 打印 canceled.met 详情
+#+BEGIN_SRC sh
+python3 canceled.py known.met
+#+END_SRC
+** 打印 file ed2klink
+#+BEGIN_SRC sh
+python3 linkcreator.py <file>...
+#+END_SRC
