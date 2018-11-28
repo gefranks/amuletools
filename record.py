@@ -231,15 +231,14 @@ class Record:
                 else:
                     self.taglist.append(tag)
 
-            '''
             if 0:
                 if tag.name:
                     pformat("Tag Name:", tag.name)
                 else:
-                    pformat("Tag Name ID:", NameIdDict[tag.name_id]
-                pformat("Tag Type:", TagTypeDict[tag.type_]
+                    pformat("Tag Name ID:", NameIdDict[tag.name_id])
+                pformat("Tag Type:", TagTypeDict[tag.type_])
                 pformat("Tag value:", tag.value)
                 print("---------------------------------------------")
-            '''
+
         #TODO
         self.arealist = sorted(areadict.values(), key=lambda x:x.start)
