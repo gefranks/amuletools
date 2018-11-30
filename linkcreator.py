@@ -11,12 +11,11 @@
 #   PartCount  > 1: FileHash = md4(PartHashs[...])
 #   PartCount == 0: assert(False)
 
-import os
-import sys
 import hashlib
 
 class LinkCreator:    
     def __init__(self, path):
+        import os.path
         self.name_ = os.path.basename(path).strip().replace(" ", "_")
         self.size_ = os.path.getsize(path)
         if len(self.name_) == 0 or self.size_ == 0:

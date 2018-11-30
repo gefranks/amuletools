@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from constant import *
-from fileio import FileIO
-from record import Record
+from .constant import MET_HEADER, MET_HEADER_I64TAGS
+from .fileio import FileIO
+from .record import Record
 
 class KnownMet:    
     def __init__(self, path):
@@ -27,8 +27,8 @@ class KnownMet:
             for record in self.records:
                 print(record.getEd2kLink())
         else:
-            from function import pformat as pf
-            from function import formatSize2 as fs2
+            from .function import pformat as pf
+            from .function import formatSize2 as fs2
             for record in self.records:
                 pf("Modification Time:", record.getFormatModifTime())
                 pf("File Name:", record.getFileName())

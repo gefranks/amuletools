@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from constant import *
-from fileio import FileIO
-from record import Record
+from .constant import *
+from .record import Record
+from .fileio import FileIO
 
 class PartMet:
     def __init__(self, path):

@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 import io
 
-class FileIO_InvalidDataError(Exception):
+class FileIOInvalidDataError(Exception):
     pass
 
 class FileIO(io.FileIO):
@@ -11,7 +11,7 @@ class FileIO(io.FileIO):
     def __readData(self, len_, mssage):
         d = super().read(len_)
         if len(d) != len_:
-            raise FileIO_InvalidDataError(message)
+            raise FileIOInvalidDataError(message)
         return d
 
     def readData(self, len_):

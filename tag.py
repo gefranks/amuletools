@@ -1,10 +1,10 @@
 #-*- coding: utf-8 -*-
-from constant import *
+from .constant import *
 
 class UnknowTagError(Exception):
     pass
         
-class Tag:
+class Tag:    
     def __init__(self, reader):
         self.name_id = 0
         self.name = None

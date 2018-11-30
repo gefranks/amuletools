@@ -1,7 +1,4 @@
 #-*- coding: utf-8 -*-
-import sys
-import time
-
 '''
 def xAssert(boolean):
     if not boolean:
@@ -13,12 +10,13 @@ def xAssert(boolean):
 def pformat(label, value):
     print("%-20s %s" % (label, value))
 
-def formatDateTime(time_secs):
-    if time_secs is None:
+def formatDateTime(secs):
+    import time
+    if secs is None:
         return "None"
-    if time_secs == 0:
+    if secs == 0:
         return "Unknown"
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time_secs))
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(secs))
 
 def formatSize(size):
     if size is None:

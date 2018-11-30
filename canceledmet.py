@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from constant import *
-from fileio import FileIO
-from record import Record
+from .fileio import FileIO
+from .record import Record
 
 class CanceledMetException(Exception):
     pass
@@ -44,7 +43,7 @@ class CanceledMet:
 
         record_count = reader.readUint32()
         for i in range(0, record_count):
-            # Record.loadHashs(reader, loadFileHashOnly=True)
+            # Record().loadHashs(reader, loadFileHashOnly=True)
             h = reader.readHash()
             if self.version != CanceledMet.AMULE_VERSION:
                 # for compatibility with future versions which may add more data than just the hash
