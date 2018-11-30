@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
-from .constant import *
-from .function import formatDateTime, formatSize
-from .tag import Tag
+from constant import *
+from function import formatDateTime, formatSize
+from tag import Tag
 
 class Area:
     InvalidPosition = 0xFFFFFFFFFFFFFFFF

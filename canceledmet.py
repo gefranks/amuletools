@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from .fileio import FileIO
-from .record import Record
+from fileio import FileIO
+from record import Record
 
 class CanceledMetException(Exception):
     pass

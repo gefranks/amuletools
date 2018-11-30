@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from .constant import MET_HEADER, MET_HEADER_I64TAGS
-from .fileio import FileIO
-from .record import Record
+from constant import MET_HEADER, MET_HEADER_I64TAGS
+from fileio import FileIO
+from record import Record
+from function import pformat, formatSize2
 
 class KnownMet:    
     def __init__(self, path):
@@ -27,18 +28,16 @@ class KnownMet:
             for record in self.records:
                 print(record.getEd2kLink())
         else:
-            from .function import pformat as pf
-            from .function import formatSize2 as fs2
             for record in self.records:
-                pf("Modification Time:", record.getFormatModifTime())
-                pf("File Name:", record.getFileName())
-                pf("File Size:", fs2(record.getFileSize()))
-                pf("File Hash:", record.getFileHash())
-                pf("AICH Hash:", record.getAichHash())
-                pf("Ed2k Part Count:", record.getEd2kPartCount())
+                pformat("Modification Time:", record.getFormatModifTime())
+                pformat("File Name:", record.getFileName())
+                pformat("File Size:", formatSize2(record.getFileSize()))
+                pformat("File Hash:", record.getFileHash())
+                pformat("AICH Hash:", record.getAichHash())
+                pformat("Ed2k Part Count:", record.getEd2kPartCount())
                 print("-------------------------------------------------")
-            pf("KnownMet Version:", "0x%02X"%(self.version,))
-            pf("Record Count:", len(self.records))
+            pformat("KnownMet Version:", "0x%02X"%(self.version,))
+            pformat("Record Count:", len(self.records))
 
 
 def main():

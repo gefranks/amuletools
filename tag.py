@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from .constant import *
+from constant import *
 
 class UnknowTagError(Exception):
     pass
