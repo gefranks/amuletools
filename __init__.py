@@ -1,6 +1,11 @@
 #-*- coding: utf-8 -*-
 import sys, os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+_dirname = os.path.dirname(os.path.abspath(__file__))
+if _dirname not in sys.path:
+    sys.path.append(_dirname)
+del _dirname
+del sys
+del os
 
 from .knownmet import KnownMet
 from .known2met import Known2Met, Known2Exception
@@ -15,6 +20,3 @@ __all__ = [
     "CanceledMet", "CanceledMetException",
     "LinkCreator"
 ]
-
-del sys
-del os
