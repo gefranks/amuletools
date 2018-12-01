@@ -1,4 +1,22 @@
 #+OPTIONS: ^:{}
+* API
+#+BEGIN_SRC python
+import os, sys
+from amuletools import *
+
+pm = PartMet("XXX.part.met")
+pm.printDetails()
+
+km = KnownMet("known.met")
+km.printDetails(linkOnly=False)
+
+with open("known2_64.met", "rb") as fp:
+    k = Known2Met(fp, os.path.getsize("known2_64.met"), outfile=sys.stdout)
+    k.decode()
+
+l = LinkCreator("file_path")
+print(l.getEd2kLink(hasPartHash=False))
+#+END_SRC
 * aMule tools
 输入选项 -h 或 --help 可查看工具的帮助；成功有效数据输出到 stdout，错误信息输出到 stderr
 ** 打印 XXX.part.met 详情
