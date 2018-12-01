@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from constant import MET_HEADER, MET_HEADER_I64TAGS
-from fileio import FileIO
-from record import Record
-from function import pformat, formatSize2
+from .constant import MET_HEADER, MET_HEADER_I64TAGS
+from .fileio import FileIO
+from .record import Record
+from .function import pformat, formatSize2
 
 class KnownMet:    
     def __init__(self, path):
