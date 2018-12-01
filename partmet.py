@@ -3,6 +3,7 @@
 from .constant import *
 from .record import Record
 from .fileio import FileIO
+from .function import pformat, formatSize2
 
 class PartMet:
     def __init__(self, path):
@@ -58,18 +59,16 @@ class PartMet:
             print(self.record.getEd2kLink())
             return
 
-        from function import pformat as pf
-        from function import formatSize2 as fs2
-        pf("PartMet Version:", "0x%02X"%(self.version,))
-        pf("Modification Time:", self.record.getFormatModifTime())
-        pf("Last Seen Complete:", self.record.getFormatLastSeenComplete())
-        pf("File Name:", self.record.getFileName())
-        pf("Part Name:", self.record.getPartName())
-        pf("File Size:", fs2(self.record.getFileSize()))
-        pf("File Hash:", self.record.getFileHash())
-        pf("AICH Hash:", self.record.getAichHash())
-        pf("Part Hash Count:", self.record.getEd2kPartCount())
-        pf("Progress:", self.record.getFormatProgress())
+        pformat("PartMet Version:", "0x%02X"%(self.version,))
+        pformat("Modification Time:", self.record.getFormatModifTime())
+        pformat("Last Seen Complete:", self.record.getFormatLastSeenComplete())
+        pformat("File Name:", self.record.getFileName())
+        pformat("Part Name:", self.record.getPartName())
+        pformat("File Size:", formatSize2(self.record.getFileSize()))
+        pformat("File Hash:", self.record.getFileHash())
+        pformat("AICH Hash:", self.record.getAichHash())
+        pformat("Part Hash Count:", self.record.getEd2kPartCount())
+        pformat("Progress:", self.record.getFormatProgress())
 
 
 def main():
