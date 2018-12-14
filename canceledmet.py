@@ -1,7 +1,7 @@
-#!/bin/python3
 #-*- coding: utf-8 -*-
 from .fileio import FileIO
 from .record import Record
+from .function import pformat
 
 class CanceledMetException(Exception):
     pass
@@ -61,7 +61,6 @@ class CanceledMet:
     def printDetails(self):
         for h in self.hashs: print(h)
         print("------------------------------------------------")
-        from function import pformat
         pformat("Version:", "0x%02X" % (self.version,))
         pformat("Record Count:", len(self.hashs))
 
@@ -78,3 +77,4 @@ class CanceledMet:
         except Exception as err:
             print("Exception:", err, file=sys.stderr)
             return 1
+

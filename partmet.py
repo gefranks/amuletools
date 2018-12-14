@@ -1,4 +1,3 @@
-#!/bin/python3
 #-*- coding: utf-8 -*-
 from .constant import *
 from .record import Record
@@ -87,3 +86,4 @@ class PartMet:
         except Exception as err:
             print("Exception:", err, file=sys.stderr)
             return 1
+
