@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/bin/env python3
 #-*- coding: utf-8 -*-
 # known2_64.met 格式：
 #   [Version ]----------[Version: uint8               ]
@@ -12,15 +12,14 @@
 import sys
 from base64 import b32decode, b32encode
 
+VERSION= 0x02
+HASH_SIZE = 20
+    
 class Known2Exception(Exception):
     pass
 
-class Known2Met:
+class Known2_Decode:
     """ 将 known2_64.met 二进制文件转换为文本，通过 sys.stdout 输出 """
-    
-    VERSION = 0x02
-    HASH_SIZE = 20
-    
     def __init__(self, infile, length, outfile=sys.stdout):
         self.outfile = outfile
         self.infile = infile
@@ -39,7 +38,7 @@ class Known2Met:
 
     def processVersion(self):
         version = self.infile.read(1)
-        if len(version) != 1 or version[0] != Known2Met.VERSION:
+        if len(version) != 1 or version[0] != VERSION:
             raise Known2Exception("Invalid Version")
         print(version[0], file=self.outfile)
         self.offset += 1
@@ -56,13 +55,13 @@ class Known2Met:
         return count
 
     def processHash(self):
-        aich = self.infile.read(Known2Met.HASH_SIZE)
-        if len(aich) != Known2Met.HASH_SIZE:
+        aich = self.infile.read(HASH_SIZE)
+        if len(aich) != HASH_SIZE:
             raise Known2Exception("Invalid HASH")
         str_ = b32encode(aich).decode()
         assert(len(str_) == 32)
         print(str_, file=self.outfile)
-        self.offset += Known2Met.HASH_SIZE
+        self.offset += HASH_SIZE
 
 
 class Known2_Encode:
@@ -87,7 +86,7 @@ class Known2_Encode:
     def processVersion(self):
         line = self.infile.readline()
         version = int(line)
-        if version != Known2Met.VERSION:
+        if version != VERSION:
             raise Known2Exception("Invalid Version")
         self.outfile.write(version.to_bytes(1, byteorder="little"))
         self.offset += len(line)
@@ -112,36 +111,36 @@ class Known2_Encode:
         self.offset += len(line)
 
 
-def main():
-    import argparse
-    p = argparse.ArgumentParser()
-    p.add_argument("-d", dest="d", action="store_true", help="decode know2_64.met")
-    p.add_argument("-e", dest="e", action="store_true", help="encode know2_64.txt")
-    p.add_argument(dest="file", nargs=1, help="know2_64.met or know2_64.txt")
-    args = p.parse_args(sys.argv[1:])
-    
-    try:
-        import os.path.getsize
-        filesize = os.path.getsize(args.file[0])
-        if filesize == 0:
-            print("Empty File", file=sys.stderr)
-            sys.exit(2)
+class Known2Met:
+    @staticmethod
+    def main()->int:
+        import argparse
+        p = argparse.ArgumentParser()
+        p.add_argument("-d", dest="d", action="store_true", help="decode know2_64.met")
+        p.add_argument("-e", dest="e", action="store_true", help="encode know2_64.txt")
+        p.add_argument(dest="file", nargs=1, help="know2_64.met or know2_64.txt")
+        args = p.parse_args(sys.argv[1:])
+        try:
+            import os.path
+            filesize = os.path.getsize(args.file[0])
+            if filesize == 0:
+                print("Empty File", file=sys.stderr)
+                return 2
 
-        decode = args.d or (not args.e)
-        if decode:
-            with open(args.file[0], "rb") as binfile:
-                km = Known2Met(binfile, filesize)
-                km.decode()  
-        else:
-            with open(args.file[0], "r") as txtfile:
-                ke = Known2_Encode(txtfile, filesize)
-                ke.encode()
-    except Known2Exception as e:
-        print("Known2Exception:", e, file=sys.stderr)
-        sys.exit(3)
-    except Exception as e:
-        print("Exception:", e, file=sys.stderr)
-        sys.exit(4)
+            decode = args.d or (not args.e)
+            if decode:
+                with open(args.file[0], "rb") as binfile:
+                    Known2_Decode(binfile, filesize).decode()  
+            else:
+                with open(args.file[0], "r") as txtfile:
+                    Known2_Encode(txtfile, filesize).encode()
+        except Known2Exception as e:
+            print("Known2Exception:", e, file=sys.stderr)
+            return 3
+        except Exception as e:
+            print("Exception:", e, file=sys.stderr)
+            return 4
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(Known2Met.main())

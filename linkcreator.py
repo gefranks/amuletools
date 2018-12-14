@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/bin/env python3
 #-*- coding: utf-8 -*-
 
 # PartHashs:
@@ -61,23 +61,23 @@ class LinkCreator:
         link += "|/"
         return link
 
+    @staticmethod
+    def main()->int:
+        import sys
+        import argparse
+        p = argparse.ArgumentParser()
+        p.add_argument("-p", dest="p", action="store_true", help="append part hashs")
+        p.add_argument(dest="files", nargs="+", help="files")
+        args = p.parse_args(sys.argv[1:])
+        try:
+            for path in args.files:
+                l = LinkCreator(path)
+                print(l.getEd2kLink(args.p))
+            return 0
+        except Exception as err:
+            print("Exception:", err, file=sys.stderr)
+            return 1
 
-def main():
-    import sys
-    import argparse
-    
-    p = argparse.ArgumentParser()
-    p.add_argument("-p", dest="p", action="store_true", help="append part hashs")
-    p.add_argument(dest="files", nargs="+", help="files")
-    args = p.parse_args(sys.argv[1:])
-
-    try:
-        for path in args.files:
-            l = LinkCreator(path)
-            print(l.getEd2kLink(args.p))
-    except Exception as err:
-        print("Exception:", err, file=sys.stderr)
-        sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    sys.exit(LinkCreator.main())

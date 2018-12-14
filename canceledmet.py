@@ -1,7 +1,7 @@
-#!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from fileio import FileIO
-from record import Record
+from .fileio import FileIO
+from .record import Record
+from .function import pformat
 
 class CanceledMetException(Exception):
     pass
@@ -61,25 +61,20 @@ class CanceledMet:
     def printDetails(self):
         for h in self.hashs: print(h)
         print("------------------------------------------------")
-        from function import pformat
         pformat("Version:", "0x%02X" % (self.version,))
         pformat("Record Count:", len(self.hashs))
 
+    @staticmethod
+    def main()->int:
+        import sys
+        import argparse
+        p = argparse.ArgumentParser()
+        p.add_argument(dest="file", nargs=1, help="canceled.met")
+        args = p.parse_args(sys.argv[1:])
+        try:
+            CanceledMet(args.file[0]).printDetails()
+            return 0
+        except Exception as err:
+            print("Exception:", err, file=sys.stderr)
+            return 1
 
-def main():
-    import sys
-    import argparse
-    
-    p = argparse.ArgumentParser()
-    p.add_argument(dest="file", nargs=1, help="canceled.met")
-    args = p.parse_args(sys.argv[1:])
-
-    try:
-        cm = CanceledMet(args.file[0])
-        cm.printDetails()
-    except Exception as err:
-        print("Exception:", err, file=sys.stderr)
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()

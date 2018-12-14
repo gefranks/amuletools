@@ -1,41 +1,66 @@
-#+OPTIONS: ^:{}
-* API
-#+BEGIN_SRC python
-import os, sys
-from amuletools import *
-
-pm = PartMet("XXX.part.met")
-pm.printDetails()
-
-km = KnownMet("known.met")
-km.printDetails(linkOnly=False)
-
-with open("known2_64.met", "rb") as fp:
-    k = Known2Met(fp, os.path.getsize("known2_64.met"), outfile=sys.stdout)
-    k.decode()
-
-l = LinkCreator("file_path")
-print(l.getEd2kLink(hasPartHash=False))
-#+END_SRC
-* aMule tools
-输入选项 -h 或 --help 可查看工具的帮助；成功有效数据输出到 stdout，错误信息输出到 stderr
-** 打印 XXX.part.met 详情
+#+TITLE: aMule 工具
+#+AUTHOR: zyh
+* download.sh
 #+BEGIN_SRC sh
-python3 partmet.py XXX.part.met
+#!/bin/bash
+MyLibDirPython=$HOME/.local/lib/python3
+mkdir -p "$MyLibDirPython"
+cd "$MyLibDirPython"
+git clone https://github.com/mjhw/amuletools.git
 #+END_SRC
-** 打印 known.met 详情
+* install.sh
 #+BEGIN_SRC sh
-python3 knownmet.py known.met
+#!/bin/bash
+MyBinDir=$HOME/.local/bin
+MyLibDirPython=$HOME/.local/lib/python3
+make_script() {
+local lower=`echo "$1" | tr '[A-Z]' '[a-z]'`
+cat << EOF > "$1"
+#!/bin/env python3
+#-*- coding: utf-8 -*-
+import sys
+sys.path.append("$MyLibDirPython")
+from amuletools.${lower} import ${1}
+sys.exit(${1}.main())
+EOF
+chmod u+x "$1"
+}
+path_exists() {
+local str=`echo "$PATH" | sed 's/:/ /g'`
+for em in $str; do
+[ "$em" = "$MyBinDir" ] && return 0
+done
+return 1
+}
+# 创建主程序
+mkdir -p "$MyBinDir"
+cd "$MyBinDir"
+make_script PartMet
+make_script CanceledMet
+make_script KnownMet
+make_script Known2Met
+make_script LinkCreator
+path_exists || echo "export PATH=${PATH}:${MyBinDir}" >> $HOME/.bashrc
 #+END_SRC
-** 打印 known2_64.met 详情
+* 例子
+输入选项 -h 或 --help 可查看工具的帮助；有效数据输出到 stdout，错误信息输出到 stderr
++ 打印 XXX.part.met 详情
 #+BEGIN_SRC sh
-python3 known2met.py known2_64.met
+PartMet ~/.aMule/Temp/XXX.part.met
 #+END_SRC
-** 打印 canceled.met 详情
++ 打印 known.met 详情
 #+BEGIN_SRC sh
-python3 canceled.py known.met
+KnownMet ~/.aMule/known.met
 #+END_SRC
-** 打印 file ed2klink
++ 打印 known2_64.met 详情
 #+BEGIN_SRC sh
-python3 linkcreator.py <file>...
+Known2Met ~/.aMule/known2_64.met
+#+END_SRC
++ 打印 canceled.met 详情
+#+BEGIN_SRC sh
+CanceledMet ~/.aMule/canceled.met
+#+END_SRC
++ 创建 FILE 的 ed2klink，并打印
+#+BEGIN_SRC sh
+LinkCreator <FILE>
 #+END_SRC

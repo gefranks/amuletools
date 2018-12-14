@@ -1,9 +1,8 @@
-#!/usr/bin/python3
 #-*- coding: utf-8 -*-
-from constant import MET_HEADER, MET_HEADER_I64TAGS
-from fileio import FileIO
-from record import Record
-from function import pformat, formatSize2
+from .constant import MET_HEADER, MET_HEADER_I64TAGS
+from .fileio import FileIO
+from .record import Record
+from .function import pformat, formatSize2
 
 class KnownMet:    
     def __init__(self, path):
@@ -39,23 +38,18 @@ class KnownMet:
             pformat("KnownMet Version:", "0x%02X"%(self.version,))
             pformat("Record Count:", len(self.records))
 
+    @staticmethod
+    def main()->int:
+        import sys
+        import argparse
+        p = argparse.ArgumentParser()
+        p.add_argument("-l", dest="l", action="store_true", help="show ed2k link only")
+        p.add_argument(dest="file", nargs=1, help="known.met")
+        args = p.parse_args(sys.argv[1:])
+        try:
+            KnownMet(args.file[0]).printDetails(args.l)
+            return 0
+        except Exception as err:
+            print("Exception:", err, file=sys.stderr)
+            return 1    
 
-def main():
-    import sys
-    import argparse
-    
-    p = argparse.ArgumentParser()
-    p.add_argument("-l", dest="l", action="store_true", help="show ed2k link only")
-    p.add_argument(dest="file", nargs=1, help="known.met")
-    args = p.parse_args(sys.argv[1:])
-
-    try:
-        km = KnownMet(args.file[0])
-        km.printDetails(args.l)
-    except Exception as err:
-        print("Exception:", err, file=sys.stderr)
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
-    
