@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/bin/python3
 #-*- coding: utf-8 -*-
 from .constant import *
 from .record import Record
@@ -70,25 +70,20 @@ class PartMet:
         pformat("Part Hash Count:", self.record.getEd2kPartCount())
         pformat("Progress:", self.record.getFormatProgress())
 
-
-def main():
-    import sys
-    import argparse
-    
-    p = argparse.ArgumentParser()
-    p.add_argument("-p", dest="p", action="store_true", help="show part hashs only")
-    p.add_argument("-a", dest="a", action="store_true", help="show incomplete area only")
-    p.add_argument("-l", dest="l", action="store_true", help="show ed2k link only")
-    p.add_argument(dest="files", nargs="+", help="XXX.part.met")
-    args = p.parse_args(sys.argv[1:])
-
-    try:
-        for path in args.files:
-            pm = PartMet(path)
-            pm.printDetails(args.p, args.a, args.l)    
-    except Exception as err:
-        print("Exception:", err, file=sys.stderr)
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
+    @staticmethod
+    def main()->int:
+        import sys
+        import argparse
+        p = argparse.ArgumentParser()
+        p.add_argument("-p", dest="p", action="store_true", help="show part hashs only")
+        p.add_argument("-a", dest="a", action="store_true", help="show incomplete area only")
+        p.add_argument("-l", dest="l", action="store_true", help="show ed2k link only")
+        p.add_argument(dest="files", nargs="+", help="XXX.part.met")
+        args = p.parse_args(sys.argv[1:])
+        try:
+            for path in args.files:
+                PartMet(path).printDetails(args.p, args.a, args.l)
+            return 0
+        except Exception as err:
+            print("Exception:", err, file=sys.stderr)
+            return 1
