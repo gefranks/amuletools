@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/bin/python3
 #-*- coding: utf-8 -*-
 # known2_64.met 格式：
 #   [Version ]----------[Version: uint8               ]
@@ -112,7 +112,7 @@ class Known2_Encode:
         self.offset += len(line)
 
 
-def main():
+def main()->int:
     import argparse
     p = argparse.ArgumentParser()
     p.add_argument("-d", dest="d", action="store_true", help="decode know2_64.met")
@@ -125,7 +125,7 @@ def main():
         filesize = os.path.getsize(args.file[0])
         if filesize == 0:
             print("Empty File", file=sys.stderr)
-            sys.exit(2)
+            return 2
 
         decode = args.d or (not args.e)
         if decode:
@@ -138,10 +138,7 @@ def main():
                 ke.encode()
     except Known2Exception as e:
         print("Known2Exception:", e, file=sys.stderr)
-        sys.exit(3)
+        return 3
     except Exception as e:
         print("Exception:", e, file=sys.stderr)
-        sys.exit(4)
-
-if __name__ == "__main__":
-    main()
+        return 4
