@@ -4,9 +4,9 @@
 #+BEGIN_SRC sh
 #!/bin/bash
 MyLibDirPython=$HOME/.local/lib/python3
-mkdir -p "$MyLibDirPython"
-cd "$MyLibDirPython"
-git clone https://github.com/mjhw/amuletools.git
+mkdir -p "$MyLibDirPython" \
+  && cd "$MyLibDirPython" \
+  && git clone https://github.com/mjhw/amuletools.git
 #+END_SRC
 * install.sh
 #+BEGIN_SRC sh
@@ -42,7 +42,7 @@ make_script KnownMet
 make_script Known2Met
 make_script LinkCreator
 env_path_has "$MyBinDir" \
-  || grep "export PATH=${PATH}:${MyBinDir}" "$MyProfile" &>/dev/null \
+  || grep -F "export PATH=${PATH}:${MyBinDir}" "$MyProfile" &>/dev/null \
   || echo "export PATH=${PATH}:${MyBinDir}" >> "$MyProfile"
 #+END_SRC
 * 例子
